@@ -1,4 +1,3 @@
-import PushImage from './PushImage'
-import LoginAccount from './LoginAccount'
-
-export { PushImage, LoginAccount }
+import LoginScores from './LoginScores'
+import RegisterSource from './RegisterSource'
+export { LoginScores, RegisterSource }

@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
-import App from '../App'
-import { PushImage, LoginAccount } from '../pages'
+
+import { LoginScores, RegisterSource } from '../pages'
 
 function Stack() {
   return (
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/PushImage" element={<PushImage />} />
-      <Route path="/LoginAccount" element={<LoginAccount />} />
+      <Route path="/" element={<LoginScores />} />
+      <Route path="/LoginScores" element={<LoginScores />} />
+      <Route path="/RegisterSource" element={<RegisterSource />} />
     </Routes>
   )
 }
