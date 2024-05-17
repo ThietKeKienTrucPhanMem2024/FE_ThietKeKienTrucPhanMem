@@ -25,7 +25,7 @@ function LoginScores(props) {
           marginBottom: 20,
         }}
       >
-        Đăng nhập
+        Đăng nhập Đăng kí học phần
       </span>
       <div
         style={{
