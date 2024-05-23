@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 function RegisterSource() {
   const courses = [
@@ -63,6 +63,21 @@ function RegisterSource() {
       status: 'Closed',
     },
   ]
+
+  const [selectedCourse, setSelectedCourse] = useState(null)
+
+  const handleRowClick = (course) => {
+    setSelectedCourse(course)
+  }
+
+  const handleCloseDialog = () => {
+    setSelectedCourse(null)
+  }
+
+  const handleRegister = () => {
+    alert(`Đăng kí thành công ${selectedCourse.name}`)
+    setSelectedCourse(null)
+  }
   return (
     <div
       style={{
@@ -94,39 +109,48 @@ function RegisterSource() {
       >
         <div
           style={{
-            height: 20,
+            height: 15,
             borderRadius: 6,
             display: 'flex',
-            justifyContent: 'space-around',
+            justifyContent: 'center',
+            alignItems: 'center',
             margin: 20,
-            padding: 10,
-            backgroundColor: '#b5ebff',
+            padding: 15,
+            backgroundColor: '#50bfb6',
+            color: 'white',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
           }}
         >
           <span>Học kì hiện tại: HK3 (2024-2025)</span>
         </div>
         <div
           style={{
-            height: 20,
+            height: 15,
             borderRadius: 6,
             display: 'flex',
-            justifyContent: 'space-around',
+            justifyContent: 'center',
+            alignItems: 'center',
             margin: 20,
-            padding: 10,
-            backgroundColor: '#ceabab',
+            padding: 15,
+            backgroundColor: '#50bfb6',
+            color: 'white',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
           }}
         >
           <span>Ds Cựu sinh viên</span>
         </div>
         <div
           style={{
-            height: 20,
+            height: 15,
             borderRadius: 6,
             display: 'flex',
-            justifyContent: 'space-around',
+            justifyContent: 'center',
+            alignItems: 'center',
             margin: 20,
-            padding: 10,
-            backgroundColor: '#938330',
+            padding: 15,
+            backgroundColor: '#50bfb6',
+            color: 'white',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
           }}
         >
           <span>Tra cứu công nợ</span>
@@ -146,7 +170,7 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#8ef2d9',
+                backgroundColor: '#20b56f',
                 color: 'white',
                 border: '1px solid #ddd',
               }}
@@ -156,7 +180,7 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#8ef2d9',
+                backgroundColor: '#20b56f',
                 color: 'white',
                 border: '1px solid #ddd',
               }}
@@ -166,7 +190,7 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#8ef2d9',
+                backgroundColor: '#20b56f',
                 color: 'white',
                 border: '1px solid #ddd',
               }}
@@ -176,7 +200,7 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#8ef2d9',
+                backgroundColor: '#20b56f',
                 color: 'white',
                 border: '1px solid #ddd',
               }}
@@ -186,7 +210,7 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#8ef2d9',
+                backgroundColor: '#20b56f',
                 color: 'white',
                 border: '1px solid #ddd',
               }}
@@ -196,7 +220,7 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#8ef2d9',
+                backgroundColor: '#20b56f',
                 color: 'white',
                 border: '1px solid #ddd',
               }}
@@ -207,7 +231,11 @@ function RegisterSource() {
         </thead>
         <tbody>
           {courses.map((course) => (
-            <tr key={course.id}>
+            <tr
+              key={course.id}
+              onClick={() => handleRowClick(course)}
+              style={{ cursor: 'pointer' }}
+            >
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
                 {course.id}
               </td>
@@ -248,38 +276,141 @@ function RegisterSource() {
           width: '80%',
           textAlign: 'center',
           borderCollapse: 'collapse',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+          marginBottom: 50,
         }}
       >
         <thead>
           <tr>
             <th
               style={{
-                paddingLeft: 10,
-                paddingRight: 10,
-                backgroundColor: '#e7e5ff',
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
                 color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
               }}
             >
               ID
             </th>
-            <th>Tên môn học</th>
-            <th>Mã học phần</th>
-            <th>Tín chỉ</th>
-            <th></th>
+            <th
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
+                color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              Tên môn học
+            </th>
+            <th
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
+                color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              Mã học phần
+            </th>
+            <th
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
+                color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              Tín chỉ
+            </th>
+            <th
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
+                color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
+            ></th>
           </tr>
         </thead>
         <tbody>
           {registerCourses.map((course) => (
             <tr key={course.id}>
-              <td>{course.id}</td>
-              <td>{course.name}</td>
-              <td>{course.code}</td>
-              <td>{course.credits}</td>
-              <td>Hủy</td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.id}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.name}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.code}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.credits}
+              </td>
+              <td
+                style={{
+                  padding: 10,
+                  border: '1px solid #ddd',
+                  cursor: 'pointer',
+                  color: '#33af92',
+                }}
+                onClick={() => {}}
+              >
+                Hủy
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {selectedCourse && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#e0fff9',
+            padding: 20,
+            borderRadius: 10,
+            boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <p>Bạn muốn đăng kí môn học: {selectedCourse.name}?</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+          >
+            <button
+              onClick={handleRegister}
+              style={{
+                backgroundColor: '#33af92',
+                color: 'white',
+                borderRadius: 5,
+                padding: '5px 10px',
+              }}
+            >
+              Đăng kí
+            </button>
+            <button
+              onClick={handleCloseDialog}
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: 5,
+                padding: '5px 10px',
+              }}
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
