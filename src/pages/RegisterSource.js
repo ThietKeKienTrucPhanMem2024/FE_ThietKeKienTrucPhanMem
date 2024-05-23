@@ -146,28 +146,86 @@ function RegisterSource() {
             <th
               style={{
                 padding: 10,
-                backgroundColor: '#a2b8ef',
+                backgroundColor: '#8ef2d9',
                 color: 'white',
+                border: '1px solid #ddd',
               }}
             >
               ID
             </th>
-            <th>Tên môn học</th>
-            <th>Mã học phần</th>
-            <th>Tín chỉ</th>
-            <th>Số lượng đăng kí</th>
-            <th>Trạng thái</th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#8ef2d9',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Tên môn học
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#8ef2d9',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Mã học phần
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#8ef2d9',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Tín chỉ
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#8ef2d9',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Số lượng đăng kí
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#8ef2d9',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Trạng thái
+            </th>
           </tr>
         </thead>
         <tbody>
           {courses.map((course) => (
             <tr key={course.id}>
-              <td>{course.id}</td>
-              <td>{course.name}</td>
-              <td>{course.code}</td>
-              <td>{course.credits}</td>
-              <td>{course.enrolled}</td>
-              <td>{course.status}</td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.id}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.name}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.code}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.credits}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.enrolled}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.status}
+              </td>
             </tr>
           ))}
         </tbody>
