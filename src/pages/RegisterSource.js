@@ -24,6 +24,15 @@ function RegisterSource() {
           ĐãĐăngKý: 10,
           TrạngThái: 'Open',
         },
+        {
+          STT: 3,
+          MãLHP: 'KTVTKPM03',
+          TênLớpHọcPhần: 'Kiến trúc phần mềm C',
+          LớpDựKiến: 'L03',
+          SĩSốTốiĐa: 40,
+          ĐãĐăngKý: 13,
+          TrạngThái: 'Open',
+        },
       ],
       TênMônHọc: 'Kiến trúc và thiết kế phần mềm',
       TínChỉ: 3,
@@ -38,6 +47,15 @@ function RegisterSource() {
           MãLHP: 'QLDAPM01',
           TênLớpHọcPhần: 'Quản lý dự án phần mềm A',
           LớpDựKiến: 'L01',
+          SĩSốTốiĐa: 30,
+          ĐãĐăngKý: 25,
+          TrạngThái: 'Open',
+        },
+        {
+          STT: 2,
+          MãLHP: 'QLDAPM02',
+          TênLớpHọcPhần: 'Quản lý dự án phần mềm B',
+          LớpDựKiến: 'L02',
           SĩSốTốiĐa: 30,
           ĐãĐăngKý: 25,
           TrạngThái: 'Open',
@@ -138,6 +156,13 @@ function RegisterSource() {
     alert(`Đăng kí thành công ${selectedCourse.ListLớp[0].TênLớpHọcPhần}`)
     setlistLopHocPhan(selectedCourse.ListLớp)
     setSelectedCourse(null)
+  }
+
+  const showClas = (course) => {
+    setSelectedCourse(selectedCourse === course ? null : course)
+    if (course && course.ListLớp) {
+      setlistLopHocPhan(course.ListLớp)
+    }
   }
   return (
     <div
@@ -259,29 +284,14 @@ function RegisterSource() {
             alignItems: 'center',
             margin: 20,
             padding: 15,
-            backgroundColor: '#50bfb6',
+            backgroundColor: '#049660',
             color: 'white',
             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
           }}
         >
           <span>Học kì hiện tại: HK3 (2024-2025)</span>
         </div>
-        <div
-          style={{
-            height: 15,
-            borderRadius: 6,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 20,
-            padding: 15,
-            backgroundColor: '#50bfb6',
-            color: 'white',
-            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-          }}
-        >
-          <span>Ds Cựu sinh viên</span>
-        </div>
+
         <div
           style={{
             height: 15,
@@ -376,7 +386,7 @@ function RegisterSource() {
           {courses.map((course) => (
             <tr
               key={course.id}
-              onClick={() => handleRowClick(course)}
+              onClick={() => showClas(course)}
               style={{ cursor: 'pointer' }}
             >
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
@@ -631,7 +641,7 @@ function RegisterSource() {
           ))}
         </tbody>
       </table>
-      {selectedCourse && (
+      {/* {selectedCourse && (
         <div
           style={{
             position: 'fixed',
@@ -679,7 +689,7 @@ function RegisterSource() {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
