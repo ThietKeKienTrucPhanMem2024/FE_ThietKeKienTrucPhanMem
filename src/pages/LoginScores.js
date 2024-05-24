@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 function LoginScores(props) {
   const width = useRef(window.innerWidth).current
   const height = useRef(window.innerHeight).current
@@ -15,14 +14,20 @@ function LoginScores(props) {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        backgroundImage:
+          'url(https://scontent.fsgn5-10.fna.fbcdn.net/v/t1.6435-9/98019594_939197706511808_4991934582837215232_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=K2v3o19Iu0kQ7kNvgGjTunV&_nc_ht=scontent.fsgn5-10.fna&oh=00_AYBu0OpFCofFP7-u7tRmJ5J9qIT0RqMRb3rX1RYpqYeX4w&oe=6677A432)',
+        backgroundSize: 'cover',
       }}
     >
       <span
         style={{
-          color: 'black',
-          fontSize: 20,
+          color: '#000',
+          fontSize: 25,
           fontWeight: 'bold',
           marginBottom: 20,
+          backgroundColor: '#c7f2b5',
+          padding: '4px 6px',
+          borderRadius: 10,
         }}
       >
         Đăng nhập Đăng kí học phần
@@ -31,12 +36,13 @@ function LoginScores(props) {
         style={{
           height: height * 0.142,
           width: width * 0.228,
-          backgroundColor: '#a2b8ef',
-          borderRadius: 6,
+          backgroundColor: '#c7f2b5',
+          borderRadius: 5,
           display: 'flex',
           justifyContent: 'space-around',
           alignItems: 'center',
           flexDirection: 'column',
+          padding: 3,
         }}
       >
         <input
@@ -56,7 +62,6 @@ function LoginScores(props) {
             paddingLeft: 10,
           }}
         />
-
         <input
           type="password"
           placeholder={'Password'}
@@ -104,5 +109,4 @@ function LoginScores(props) {
     </div>
   )
 }
-
 export default LoginScores

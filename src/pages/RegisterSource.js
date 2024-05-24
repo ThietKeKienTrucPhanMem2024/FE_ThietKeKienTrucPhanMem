@@ -3,44 +3,103 @@ import { useRef, useState } from 'react'
 function RegisterSource() {
   const courses = [
     {
-      id: 1,
-      name: 'Kiến trúc và thiết kế phần mềm',
-      code: 'KTVTKPM',
-      credits: 3,
-      enrolled: 30,
-      status: 'Open',
+      STT: 1,
+      MaHP: 'KTVTKPM',
+      ListLớp: [
+        {
+          STT: 1,
+          MãLHP: 'KTVTKPM01',
+          TênLớpHọcPhần: 'Kiến trúc phần mềm A',
+          LớpDựKiến: 'L01',
+          SĩSốTốiĐa: 40,
+          ĐãĐăngKý: 30,
+          TrạngThái: 'Open',
+        },
+        {
+          STT: 2,
+          MãLHP: 'KTVTKPM02',
+          TênLớpHọcPhần: 'Kiến trúc phần mềm B',
+          LớpDựKiến: 'L02',
+          SĩSốTốiĐa: 40,
+          ĐãĐăngKý: 10,
+          TrạngThái: 'Open',
+        },
+      ],
+      TênMônHọc: 'Kiến trúc và thiết kế phần mềm',
+      TínChỉ: 3,
+      HọcPhầnTrước: 'Nhập môn công nghệ phần mềm',
     },
     {
-      id: 2,
-      name: 'Quản lý dự án phần mềm',
-      code: 'QLDAPM',
-      credits: 4,
-      enrolled: 25,
-      status: 'Open',
+      STT: 2,
+      MaHP: 'QLDAPM',
+      ListLớp: [
+        {
+          STT: 1,
+          MãLHP: 'QLDAPM01',
+          TênLớpHọcPhần: 'Quản lý dự án phần mềm A',
+          LớpDựKiến: 'L01',
+          SĩSốTốiĐa: 30,
+          ĐãĐăngKý: 25,
+          TrạngThái: 'Open',
+        },
+      ],
+      TênMônHọc: 'Quản lý dự án phần mềm',
+      TínChỉ: 4,
+      HọcPhầnTrước: 'Nhập môn quản lý dự án',
     },
     {
-      id: 3,
-      name: 'Lập trình hướng đối tượng',
-      code: 'LTHDT',
-      credits: 3,
-      enrolled: 20,
-      status: 'Closed',
+      STT: 3,
+      MaHP: 'LTHDT',
+      ListLớp: [
+        {
+          STT: 1,
+          MãLHP: 'LTHDT01',
+          TênLớpHọcPhần: 'Lập trình hướng đối tượng A',
+          LớpDựKiến: 'L01',
+          SĩSốTốiĐa: 25,
+          ĐãĐăngKý: 20,
+          TrạngThái: 'Closed',
+        },
+      ],
+      TênMônHọc: 'Lập trình hướng đối tượng',
+      TínChỉ: 3,
+      HọcPhầnTrước: 'Lập trình cơ bản',
     },
     {
-      id: 4,
-      name: 'Lập Trình WWW với công nghệ Java',
-      code: 'LTWWWJ',
-      credits: 3,
-      enrolled: 15,
-      status: 'Open',
+      STT: 4,
+      MaHP: 'LTWWWJ',
+      ListLớp: [
+        {
+          STT: 1,
+          MãLHP: 'LTWWWJ01',
+          TênLớpHọcPhần: 'Lập trình WWW với Java A',
+          LớpDựKiến: 'L01',
+          SĩSốTốiĐa: 20,
+          ĐãĐăngKý: 15,
+          TrạngThái: 'Open',
+        },
+      ],
+      TênMônHọc: 'Lập Trình WWW với công nghệ Java',
+      TínChỉ: 3,
+      HọcPhầnTrước: 'Lập trình Java cơ bản',
     },
     {
-      id: 5,
-      name: 'Nhập môn dữ liệu lớn',
-      code: 'NMDLL',
-      credits: 4,
-      enrolled: 40,
-      status: 'Closed',
+      STT: 5,
+      MaHP: 'NMDLL',
+      ListLớp: [
+        {
+          STT: 1,
+          MãLHP: 'NMDLL01',
+          TênLớpHọcPhần: 'Nhập môn dữ liệu lớn A',
+          LớpDựKiến: 'L01',
+          SĩSốTốiĐa: 50,
+          ĐãĐăngKý: 40,
+          TrạngThái: 'Closed',
+        },
+      ],
+      TênMônHọc: 'Nhập môn dữ liệu lớn',
+      TínChỉ: 4,
+      HọcPhầnTrước: 'Nhập môn cơ sở dữ liệu',
     },
   ]
 
@@ -65,9 +124,10 @@ function RegisterSource() {
   ]
 
   const [selectedCourse, setSelectedCourse] = useState(null)
+  const [listLopHocPhan, setlistLopHocPhan] = useState([])
 
   const handleRowClick = (course) => {
-    setSelectedCourse(course)
+    setSelectedCourse(selectedCourse === course ? null : course)
   }
 
   const handleCloseDialog = () => {
@@ -75,7 +135,8 @@ function RegisterSource() {
   }
 
   const handleRegister = () => {
-    alert(`Đăng kí thành công ${selectedCourse.name}`)
+    alert(`Đăng kí thành công ${selectedCourse.ListLớp[0].TênLớpHọcPhần}`)
+    setlistLopHocPhan(selectedCourse.ListLớp)
     setSelectedCourse(null)
   }
   return (
@@ -88,6 +149,88 @@ function RegisterSource() {
         flexDirection: 'column',
       }}
     >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: '#e0f7fa',
+          padding: 20,
+          borderRadius: 8,
+          width: '80%',
+          margin: '20px 0',
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: '#29b6f6',
+            padding: '20px 40px',
+            borderRadius: 8,
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+        >
+          <span style={{ marginTop: 10 }}>Nguyễn Đức Chiến</span>
+          <span>Giới tính: Nam</span>
+          <span>MSSV: 20066981</span>
+          <span>Trạng thái: Đang học</span>
+          <button
+            style={{
+              backgroundColor: '#ff7043',
+              color: 'white',
+              border: 'none',
+              borderRadius: 4,
+              padding: '8px 16px',
+              marginTop: 20,
+              cursor: 'pointer',
+            }}
+          >
+            Đăng xuất
+          </button>
+        </div>
+        <img
+          src="https://zpsocial-f57-org.zadn.vn/eb953a960233e36dba22.jpg"
+          alt="User"
+          style={{
+            marginLeft: 30,
+
+            width: 100,
+            height: 100,
+            borderRadius: '5%',
+          }}
+        />
+        <div style={{ marginLeft: 10, textAlign: 'left' }}>
+          <p
+            style={{
+              fontSize: '16px',
+              color: '#07c6b6',
+              textDecoration: 'underline',
+            }}
+          >
+            THÔNG TIN SINH VIÊN
+          </p>
+          <p
+            style={{
+              fontSize: '16px',
+              color: '#07c6b6',
+              textDecoration: 'underline',
+            }}
+          >
+            ĐĂNG KÝ HỌC PHẦN
+          </p>
+          <p
+            style={{
+              fontSize: '16px',
+              color: '#07c6b6',
+              textDecoration: 'underline',
+            }}
+          >
+            CHƯƠNG TRÌNH KHUNG
+          </p>
+        </div>
+      </div>
+
       <span
         style={{
           color: 'black',
@@ -175,17 +318,7 @@ function RegisterSource() {
                 border: '1px solid #ddd',
               }}
             >
-              ID
-            </th>
-            <th
-              style={{
-                padding: 10,
-                backgroundColor: '#20b56f',
-                color: 'white',
-                border: '1px solid #ddd',
-              }}
-            >
-              Tên môn học
+              STT
             </th>
             <th
               style={{
@@ -205,6 +338,16 @@ function RegisterSource() {
                 border: '1px solid #ddd',
               }}
             >
+              Tên môn học
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
               Tín chỉ
             </th>
             <th
@@ -215,7 +358,130 @@ function RegisterSource() {
                 border: '1px solid #ddd',
               }}
             >
-              Số lượng đăng kí
+              Trạng thái
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Học phần trước
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map((course) => (
+            <tr
+              key={course.id}
+              onClick={() => handleRowClick(course)}
+              style={{ cursor: 'pointer' }}
+            >
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.STT}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.MaHP}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.TênMônHọc}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.TínChỉ}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                Bắt buộc
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.HọcPhầnTrước}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <span
+        style={{
+          marginTop: 20,
+          marginBottom: 20,
+          color: '#e28956',
+          fontSize: 17,
+          fontWeight: 'bold',
+        }}
+      >
+        Lớp học phần chờ đăng ký
+      </span>
+      <table
+        border="1"
+        style={{
+          width: '80%',
+          textAlign: 'center',
+          borderCollapse: 'collapse',
+        }}
+      >
+        <thead>
+          <tr>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              STT
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Mã Lớp học
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Tên Lớp học phần
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Lớp dự kiến
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Sĩ số tối đa
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Đã đăng ký
             </th>
             <th
               style={{
@@ -230,29 +496,32 @@ function RegisterSource() {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course) => (
+          {listLopHocPhan.map((course) => (
             <tr
-              key={course.id}
+              key={course.STT}
               onClick={() => handleRowClick(course)}
               style={{ cursor: 'pointer' }}
             >
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.id}
+                {course.STT}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.name}
+                {course.MãLHP}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.code}
+                {course.TênLớpHọcPhần}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.credits}
+                {course.LớpDựKiến}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.enrolled}
+                {course.SĩSốTốiĐa}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.status}
+                {course.ĐãĐăngKý}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.TrạngThái}
               </td>
             </tr>
           ))}
