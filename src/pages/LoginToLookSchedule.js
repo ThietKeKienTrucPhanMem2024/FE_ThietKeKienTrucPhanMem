@@ -9,7 +9,7 @@ function LoginToLookSchedule(props) {
   const [password, setPassword] = useState('')
   const handleLogin = () => {
     if (username === '20066981' && password === '12345678') {
-      navigate('/RegisterSource')
+      navigate('/InforStudent')
     } else {
       alert('Invalid username or password')
     }

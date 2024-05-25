@@ -151,7 +151,7 @@ const RegisterSource = (props) => {
         <div style={{ marginLeft: 10, textAlign: 'left' }}>
           <p
             onClick={() => {
-              navigate('/InforStudent')
+              navigate('/LoginToLookSchedule')
             }}
             style={{
               fontSize: '16px',

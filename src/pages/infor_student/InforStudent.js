@@ -1,8 +1,11 @@
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const InforStudent = (props) => {
   const [student, setStudent] = useState({})
+
+  const navigate = useNavigate()
 
   const fetchStudent = async () => {
     try {
@@ -107,6 +110,61 @@ const InforStudent = (props) => {
           <sp>Niêm giám: {student.session}</sp>
           <sp>email: {student.email}</sp>
           <sp>phone: {student.phone}</sp>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          height: 100,
+          width: '80%',
+          borderRadius: 5,
+          marginTop: 30,
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            height: 100,
+            width: '20%',
+            backgroundColor: '#b960f7',
+            borderRadius: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            border: '1px solid black',
+          }}
+          onClick={() => navigate('/SchedulePage')}
+        >
+          --------------
+          <br />
+          Xem lịch học
+          <br />
+          --------------
+        </div>
+        <div
+          style={{
+            marginLeft: 10,
+            display: 'flex',
+            flexDirection: 'row',
+            height: 100,
+            width: '20%',
+            backgroundColor: '#ff9696',
+            borderRadius: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            border: '1px solid black',
+          }}
+          // onClick={() => navigate('/LoginToLookSchedule')}
+        >
+          --------------
+          <br />
+          Xem điểm
+          <br />
+          --------------
         </div>
       </div>
     </div>
