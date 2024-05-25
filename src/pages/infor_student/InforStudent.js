@@ -4,7 +4,21 @@ import { useEffect, useRef, useState } from 'react'
 const InforStudent = (props) => {
   const [student, setStudent] = useState({})
 
-  useEffect(() => {}, [])
+  const fetchStudent = async () => {
+    try {
+      const response = await axios
+        .get(`http://localhost:8092/api/v1/regist-courses/students/20066981`)
+        .then((res) => {
+          setStudent(res.data)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchStudent()
+  }, [])
   return (
     <div
       style={{
@@ -61,11 +75,11 @@ const InforStudent = (props) => {
             alignItems: 'flex-start',
           }}
         >
-          <sp>MSSV: 20066981</sp>
-          <sp>Họ tên: Nguyễn Đức Chiến</sp>
+          <sp>MSSV: {student.studentId}</sp>
+          <sp>Họ tên: {student.name}</sp>
           <sp>Giới tính: Nam</sp>
           <sp>Ngày sinh: 30/11/2002</sp>
-          <sp>Nơi sinh: Tỉnh Thanh Hóa</sp>
+          <sp>Nơi sinh: {student.address}</sp>
         </div>
         <div
           style={{
@@ -79,11 +93,20 @@ const InforStudent = (props) => {
             alignItems: 'flex-start',
           }}
         >
-          <sp>MSSV: 20066981</sp>
-          <sp>Họ tên: Nguyễn Đức Chiến</sp>
-          <sp>Giới tính: Nam</sp>
-          <sp>Ngày sinh: 30/11/2002</sp>
-          <sp>Nơi sinh: Tỉnh Thanh Hóa</sp>
+          {student.majors != null ? (
+            <sp>Ngành: {student.majors.name}</sp>
+          ) : (
+            <sp></sp>
+          )}
+
+          {student.majors != null ? (
+            <sp>Khoa: {student.majors.faculty.name}</sp>
+          ) : (
+            <sp></sp>
+          )}
+          <sp>Niêm giám: {student.session}</sp>
+          <sp>email: {student.email}</sp>
+          <sp>phone: {student.phone}</sp>
         </div>
       </div>
     </div>

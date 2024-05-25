@@ -160,15 +160,7 @@ const RegisterSource = (props) => {
           >
             THÔNG TIN SINH VIÊN
           </p>
-          <p
-            style={{
-              fontSize: '16px',
-              color: '#07c6b6',
-              textDecoration: 'underline',
-            }}
-          >
-            ĐĂNG KÝ HỌC PHẦN
-          </p>
+
           <p
             style={{
               fontSize: '16px',
