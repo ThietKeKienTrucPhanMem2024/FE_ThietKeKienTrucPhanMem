@@ -14,7 +14,7 @@ const RegisterSource = (props) => {
   const getAllSubjects = async () => {
     try {
       const response = await axios
-        .get(`http://localhost:8092/api/v1/regist-courses/subjects`)
+        .get(`http://localhost:8092/api/v1/regist-courses/subjects/20066981`)
         .then((res) => {
           setCourses(res.data)
         })
@@ -32,6 +32,20 @@ const RegisterSource = (props) => {
             studentId: res.data.studentId,
             sex: 'Nam',
           })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getAllSessionClass = async ({ idSubject }) => {
+    try {
+      const response = await axios
+        .get(
+          `http://localhost:8092/api/v1/regist-courses/section-classes/get-all-by-subject-id/${idSubject}`
+        )
+        .then((res) => {
+          setSesionClass(res.data)
         })
     } catch (error) {
       console.log(error)
@@ -61,6 +75,8 @@ const RegisterSource = (props) => {
       status: 'Closed',
     },
   ]
+
+  const [sesionClass, setSesionClass] = useState([])
 
   return (
     <div
@@ -290,7 +306,9 @@ const RegisterSource = (props) => {
           {courses.map((course) => (
             <tr
               key={course.subjectId}
-              onClick={() => {}}
+              onClick={() => {
+                getAllSessionClass({ idSubject: course.subjectId })
+              }}
               style={{ cursor: 'pointer' }}
             >
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
@@ -356,16 +374,7 @@ const RegisterSource = (props) => {
             >
               STT
             </th>
-            <th
-              style={{
-                padding: 10,
-                backgroundColor: '#20b56f',
-                color: 'white',
-                border: '1px solid #ddd',
-              }}
-            >
-              Mã Lớp học
-            </th>
+
             <th
               style={{
                 padding: 10,
@@ -384,7 +393,7 @@ const RegisterSource = (props) => {
                 border: '1px solid #ddd',
               }}
             >
-              Lớp dự kiến
+              Ngày mở
             </th>
             <th
               style={{
@@ -394,7 +403,7 @@ const RegisterSource = (props) => {
                 border: '1px solid #ddd',
               }}
             >
-              Sĩ số tối đa
+              Ngày đóng
             </th>
             <th
               style={{
@@ -414,40 +423,61 @@ const RegisterSource = (props) => {
                 border: '1px solid #ddd',
               }}
             >
+              Lịch học
+            </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
               Trạng thái
             </th>
           </tr>
         </thead>
         <tbody>
-          {/* {listLopHocPhan.map((course) => (
-            <tr
-              key={course.STT}
-              onClick={() => handleRowClick(course)}
-              style={{ cursor: 'pointer' }}
-            >
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.STT}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.MãLHP}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.TênLớpHọcPhần}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.LớpDựKiến}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.SĩSốTốiĐa}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.ĐãĐăngKý}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.TrạngThái}
-              </td>
-            </tr>
-          ))} */}
+          {sesionClass != [] ? (
+            sesionClass.map((sesion) => (
+              <tr
+                key={sesion.sectionClassId}
+                onClick={() => {}}
+                style={{ cursor: 'pointer' }}
+              >
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {sesion.sectionClassId}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {sesion.name}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {sesion.startDate}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {sesion.endDate}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {sesion.studentNumber}/30
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  Lý thuyết: {sesion.theorySchedule} <br /> Thực hành:
+                  {sesion.practiceSchedule}
+                </td>
+                <td
+                  style={{
+                    padding: 10,
+                    border: '1px solid #ddd',
+                    color: 'green',
+                  }}
+                >
+                  Open
+                </td>
+              </tr>
+            ))
+          ) : (
+            <div></div>
+          )}
         </tbody>
       </table>
 
