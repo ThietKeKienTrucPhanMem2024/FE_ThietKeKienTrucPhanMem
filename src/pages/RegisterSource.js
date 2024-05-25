@@ -1,63 +1,44 @@
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterSource = (props) => {
-  // const courses = [
-  //   {
-  //     STT: 1,
-  //     MaHP: 'KTVTKPM',
-  //     ListLớp: [
-  //       {
-  //         STT: 1,
-  //         MãLHP: 'KTVTKPM01',
-  //         TênLớpHọcPhần: 'Kiến trúc phần mềm A',
-  //         LớpDựKiến: 'L01',
-  //         SĩSốTốiĐa: 40,
-  //         ĐãĐăngKý: 30,
-  //         TrạngThái: 'Open',
-  //       },
-  //       {
-  //         STT: 2,
-  //         MãLHP: 'KTVTKPM02',
-  //         TênLớpHọcPhần: 'Kiến trúc phần mềm B',
-  //         LớpDựKiến: 'L02',
-  //         SĩSốTốiĐa: 40,
-  //         ĐãĐăngKý: 10,
-  //         TrạngThái: 'Open',
-  //       },
-  //       {
-  //         STT: 3,
-  //         MãLHP: 'KTVTKPM03',
-  //         TênLớpHọcPhần: 'Kiến trúc phần mềm C',
-  //         LớpDựKiến: 'L03',
-  //         SĩSốTốiĐa: 40,
-  //         ĐãĐăngKý: 13,
-  //         TrạngThái: 'Open',
-  //       },
-  //     ],
-  //     TênMônHọc: 'Kiến trúc và thiết kế phần mềm',
-  //     TínChỉ: 3,
-  //     HọcPhầnTrước: 'Nhập môn công nghệ phần mềm',
-  //   },
-
-  // ]
+  const [student, setStudent] = useState({
+    name: '',
+    sex: 'Nam',
+    studentId: '',
+  })
+  const navigate = useNavigate()
 
   const [courses, setCourses] = useState([])
-
-  //  api localhost:8092/api/v1/regist-course/subjects Get
-
-  useEffect(() => {
-    const getAllSubjects = async () => {
-      try {
-        const response = await axios
-          .get(`http://localhost:8092/api/v1/regist-course/subjects`)
-          .then((res) => {
-            setCourses(res.data)
-          })
-      } catch (error) {
-        console.log(error)
-      }
+  const getAllSubjects = async () => {
+    try {
+      const response = await axios
+        .get(`http://localhost:8092/api/v1/regist-courses/subjects`)
+        .then((res) => {
+          setCourses(res.data)
+        })
+    } catch (error) {
+      console.log(error)
     }
+  }
+  const getStudent = async () => {
+    try {
+      const response = await axios
+        .get(`http://localhost:8092/api/v1/regist-courses/students/20066981`)
+        .then((res) => {
+          setStudent({
+            name: res.data.name,
+            studentId: res.data.studentId,
+            sex: 'Nam',
+          })
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getStudent()
     getAllSubjects()
   }, [])
 
@@ -136,9 +117,9 @@ const RegisterSource = (props) => {
             alignItems: 'flex-start',
           }}
         >
-          <span style={{ marginTop: 10 }}>Nguyễn Đức Chiến</span>
-          <span>Giới tính: Nam</span>
-          <span>MSSV: 20066981</span>
+          <span style={{ marginTop: 10 }}>{student.name}</span>
+          <span>Giới tính: {student.sex}</span>
+          <span>MSSV: {student.studentId}</span>
           <span>Trạng thái: Đang học</span>
           <button
             style={{
@@ -165,8 +146,12 @@ const RegisterSource = (props) => {
             borderRadius: '5%',
           }}
         />
+
         <div style={{ marginLeft: 10, textAlign: 'left' }}>
           <p
+            onClick={() => {
+              navigate('/InforStudent')
+            }}
             style={{
               fontSize: '16px',
               color: '#07c6b6',

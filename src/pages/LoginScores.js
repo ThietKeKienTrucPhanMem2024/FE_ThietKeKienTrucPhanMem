@@ -1,10 +1,18 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 function LoginScores(props) {
   const width = useRef(window.innerWidth).current
   const height = useRef(window.innerHeight).current
   const navigate = useNavigate()
-
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const handleLogin = () => {
+    if (username === '20066981' && password === '12345678') {
+      navigate('/RegisterSource')
+    } else {
+      alert('Invalid username or password')
+    }
+  }
   return (
     <div
       style={{
@@ -47,7 +55,8 @@ function LoginScores(props) {
       >
         <input
           type="text"
-          placeholder={'Username or Email'}
+          placeholder={'Nhập mã sinh viên'}
+          onChange={(e) => setUsername(e.target.value)}
           style={{
             marginTop: 10,
             backgroundColor: '#385b70',
@@ -64,6 +73,7 @@ function LoginScores(props) {
         />
         <input
           type="password"
+          onChange={(e) => setPassword(e.target.value)}
           placeholder={'Password'}
           color={'#fff'}
           style={{
@@ -98,11 +108,8 @@ function LoginScores(props) {
           borderRadius: 5,
           textAlign: 'center',
           justifyContent: 'center',
-          paddingLeft: 10,
         }}
-        onClick={() => {
-          navigate('/RegisterSource')
-        }}
+        onClick={handleLogin}
       >
         Đăng nhập
       </button>
