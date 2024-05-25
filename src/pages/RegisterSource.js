@@ -69,16 +69,6 @@ const RegisterSource = (props) => {
     setSelectedCourse(selectedCourse === course ? null : course)
   }
 
-  const handleCloseDialog = () => {
-    setSelectedCourse(null)
-  }
-
-  const handleRegister = () => {
-    alert(`Đăng kí thành công ${selectedCourse.ListLớp[0].TênLớpHọcPhần}`)
-    setlistLopHocPhan(selectedCourse.ListLớp)
-    setSelectedCourse(null)
-  }
-
   const showClas = (course) => {
     setSelectedCourse(selectedCourse === course ? null : course)
     if (course && course.ListLớp) {
