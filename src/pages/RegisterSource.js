@@ -78,6 +78,14 @@ const RegisterSource = (props) => {
 
   const [sesionClass, setSesionClass] = useState([])
 
+  const [subjectRegister, setSubjectRegister] = useState('')
+
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+  }
+
   return (
     <div
       style={{
@@ -308,6 +316,7 @@ const RegisterSource = (props) => {
               key={course.subjectId}
               onClick={() => {
                 getAllSessionClass({ idSubject: course.subjectId })
+                setSubjectRegister(course.name)
               }}
               style={{ cursor: 'pointer' }}
             >
@@ -442,7 +451,9 @@ const RegisterSource = (props) => {
             sesionClass.map((sesion) => (
               <tr
                 key={sesion.sectionClassId}
-                onClick={() => {}}
+                onClick={() => {
+                  setOpenDialog(true)
+                }}
                 style={{ cursor: 'pointer' }}
               >
                 <td style={{ padding: 10, border: '1px solid #ddd' }}>
@@ -584,6 +595,56 @@ const RegisterSource = (props) => {
           ))}
         </tbody>
       </table>
+
+      {openDialog == true && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#e0fff9',
+            padding: 20,
+            borderRadius: 10,
+            boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <p>Bạn muốn đăng kí môn học: {subjectRegister}?</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+          >
+            <button
+              // onClick={handleRegister}
+              style={{
+                backgroundColor: '#33af92',
+                color: 'white',
+                borderRadius: 5,
+                padding: '5px 10px',
+              }}
+            >
+              Đăng kí
+            </button>
+            <button
+              onClick={handleCloseDialog}
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: 5,
+                padding: '5px 10px',
+              }}
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
