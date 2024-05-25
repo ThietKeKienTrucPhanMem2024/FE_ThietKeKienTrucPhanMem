@@ -1,125 +1,65 @@
-import { useRef, useState } from 'react'
+import axios from 'axios'
+import { useEffect, useRef, useState } from 'react'
 
-function RegisterSource() {
-  const courses = [
-    {
-      STT: 1,
-      MaHP: 'KTVTKPM',
-      ListLớp: [
-        {
-          STT: 1,
-          MãLHP: 'KTVTKPM01',
-          TênLớpHọcPhần: 'Kiến trúc phần mềm A',
-          LớpDựKiến: 'L01',
-          SĩSốTốiĐa: 40,
-          ĐãĐăngKý: 30,
-          TrạngThái: 'Open',
-        },
-        {
-          STT: 2,
-          MãLHP: 'KTVTKPM02',
-          TênLớpHọcPhần: 'Kiến trúc phần mềm B',
-          LớpDựKiến: 'L02',
-          SĩSốTốiĐa: 40,
-          ĐãĐăngKý: 10,
-          TrạngThái: 'Open',
-        },
-        {
-          STT: 3,
-          MãLHP: 'KTVTKPM03',
-          TênLớpHọcPhần: 'Kiến trúc phần mềm C',
-          LớpDựKiến: 'L03',
-          SĩSốTốiĐa: 40,
-          ĐãĐăngKý: 13,
-          TrạngThái: 'Open',
-        },
-      ],
-      TênMônHọc: 'Kiến trúc và thiết kế phần mềm',
-      TínChỉ: 3,
-      HọcPhầnTrước: 'Nhập môn công nghệ phần mềm',
-    },
-    {
-      STT: 2,
-      MaHP: 'QLDAPM',
-      ListLớp: [
-        {
-          STT: 1,
-          MãLHP: 'QLDAPM01',
-          TênLớpHọcPhần: 'Quản lý dự án phần mềm A',
-          LớpDựKiến: 'L01',
-          SĩSốTốiĐa: 30,
-          ĐãĐăngKý: 25,
-          TrạngThái: 'Open',
-        },
-        {
-          STT: 2,
-          MãLHP: 'QLDAPM02',
-          TênLớpHọcPhần: 'Quản lý dự án phần mềm B',
-          LớpDựKiến: 'L02',
-          SĩSốTốiĐa: 30,
-          ĐãĐăngKý: 25,
-          TrạngThái: 'Open',
-        },
-      ],
-      TênMônHọc: 'Quản lý dự án phần mềm',
-      TínChỉ: 4,
-      HọcPhầnTrước: 'Nhập môn quản lý dự án',
-    },
-    {
-      STT: 3,
-      MaHP: 'LTHDT',
-      ListLớp: [
-        {
-          STT: 1,
-          MãLHP: 'LTHDT01',
-          TênLớpHọcPhần: 'Lập trình hướng đối tượng A',
-          LớpDựKiến: 'L01',
-          SĩSốTốiĐa: 25,
-          ĐãĐăngKý: 20,
-          TrạngThái: 'Closed',
-        },
-      ],
-      TênMônHọc: 'Lập trình hướng đối tượng',
-      TínChỉ: 3,
-      HọcPhầnTrước: 'Lập trình cơ bản',
-    },
-    {
-      STT: 4,
-      MaHP: 'LTWWWJ',
-      ListLớp: [
-        {
-          STT: 1,
-          MãLHP: 'LTWWWJ01',
-          TênLớpHọcPhần: 'Lập trình WWW với Java A',
-          LớpDựKiến: 'L01',
-          SĩSốTốiĐa: 20,
-          ĐãĐăngKý: 15,
-          TrạngThái: 'Open',
-        },
-      ],
-      TênMônHọc: 'Lập Trình WWW với công nghệ Java',
-      TínChỉ: 3,
-      HọcPhầnTrước: 'Lập trình Java cơ bản',
-    },
-    {
-      STT: 5,
-      MaHP: 'NMDLL',
-      ListLớp: [
-        {
-          STT: 1,
-          MãLHP: 'NMDLL01',
-          TênLớpHọcPhần: 'Nhập môn dữ liệu lớn A',
-          LớpDựKiến: 'L01',
-          SĩSốTốiĐa: 50,
-          ĐãĐăngKý: 40,
-          TrạngThái: 'Closed',
-        },
-      ],
-      TênMônHọc: 'Nhập môn dữ liệu lớn',
-      TínChỉ: 4,
-      HọcPhầnTrước: 'Nhập môn cơ sở dữ liệu',
-    },
-  ]
+const RegisterSource = (props) => {
+  // const courses = [
+  //   {
+  //     STT: 1,
+  //     MaHP: 'KTVTKPM',
+  //     ListLớp: [
+  //       {
+  //         STT: 1,
+  //         MãLHP: 'KTVTKPM01',
+  //         TênLớpHọcPhần: 'Kiến trúc phần mềm A',
+  //         LớpDựKiến: 'L01',
+  //         SĩSốTốiĐa: 40,
+  //         ĐãĐăngKý: 30,
+  //         TrạngThái: 'Open',
+  //       },
+  //       {
+  //         STT: 2,
+  //         MãLHP: 'KTVTKPM02',
+  //         TênLớpHọcPhần: 'Kiến trúc phần mềm B',
+  //         LớpDựKiến: 'L02',
+  //         SĩSốTốiĐa: 40,
+  //         ĐãĐăngKý: 10,
+  //         TrạngThái: 'Open',
+  //       },
+  //       {
+  //         STT: 3,
+  //         MãLHP: 'KTVTKPM03',
+  //         TênLớpHọcPhần: 'Kiến trúc phần mềm C',
+  //         LớpDựKiến: 'L03',
+  //         SĩSốTốiĐa: 40,
+  //         ĐãĐăngKý: 13,
+  //         TrạngThái: 'Open',
+  //       },
+  //     ],
+  //     TênMônHọc: 'Kiến trúc và thiết kế phần mềm',
+  //     TínChỉ: 3,
+  //     HọcPhầnTrước: 'Nhập môn công nghệ phần mềm',
+  //   },
+
+  // ]
+
+  const [courses, setCourses] = useState([])
+
+  //  api localhost:8092/api/v1/regist-course/subjects Get
+
+  useEffect(() => {
+    const getAllSubjects = async () => {
+      try {
+        const response = await axios
+          .get(`http://localhost:8092/api/v1/regist-course/subjects`)
+          .then((res) => {
+            setCourses(res.data)
+          })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAllSubjects()
+  }, [])
 
   const registerCourses = [
     {
@@ -358,7 +298,7 @@ function RegisterSource() {
                 border: '1px solid #ddd',
               }}
             >
-              Tín chỉ
+              TC Lý thuyết
             </th>
             <th
               style={{
@@ -368,7 +308,7 @@ function RegisterSource() {
                 border: '1px solid #ddd',
               }}
             >
-              Trạng thái
+              TC Thực hành
             </th>
             <th
               style={{
@@ -380,32 +320,51 @@ function RegisterSource() {
             >
               Học phần trước
             </th>
+            <th
+              style={{
+                padding: 10,
+                backgroundColor: '#20b56f',
+                color: 'white',
+                border: '1px solid #ddd',
+              }}
+            >
+              Trạng thái
+            </th>
           </tr>
         </thead>
         <tbody>
           {courses.map((course) => (
             <tr
-              key={course.id}
+              key={course.subjectId}
               onClick={() => showClas(course)}
               style={{ cursor: 'pointer' }}
             >
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.STT}
+                {course.subjectId}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.MaHP}
+                MHP{course.subjectId}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.TênMônHọc}
+                {course.name}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.TínChỉ}
+                {course.theoryCredit}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.practiceCredit}
+              </td>
+              <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                {course.prerequisiteIds.map((id, index) => (
+                  <span key={id}>
+                    {id}
+                    <span style={{ color: 'red' }}>(*)</span>
+                    {index < course.prerequisiteIds.length - 1 && ', '}
+                  </span>
+                ))}
               </td>
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
                 Bắt buộc
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.HọcPhầnTrước}
               </td>
             </tr>
           ))}
