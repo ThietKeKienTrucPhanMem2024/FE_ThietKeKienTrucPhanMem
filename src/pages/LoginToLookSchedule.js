@@ -1,11 +1,19 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function LoginToLookSchedule(props) {
   const width = useRef(window.innerWidth).current
   const height = useRef(window.innerHeight).current
   const navigate = useNavigate()
-
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const handleLogin = () => {
+    if (username === '20066981' && password === '12345678') {
+      navigate('/RegisterSource')
+    } else {
+      alert('Invalid username or password')
+    }
+  }
   return (
     <div
       style={{
@@ -15,36 +23,44 @@ function LoginToLookSchedule(props) {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        backgroundImage:
+          'url(https://vnn-imgs-f.vgcloud.vn/2019/04/10/13/lam-mat-sach-diem-truong-dai-hoc-goi-sinh-vien-le-tu-khai-lai.jpg)',
+        backgroundSize: 'cover',
       }}
     >
       <span
         style={{
-          color: 'black',
-          fontSize: 20,
+          color: '#000',
+          fontSize: 25,
           fontWeight: 'bold',
           marginBottom: 20,
+          backgroundColor: '#c7f2b5',
+          padding: '4px 6px',
+          borderRadius: 10,
         }}
       >
-        Đăng nhập Trang thông tin sinh viên
+        Đăng nhập vào trang sinh viên
       </span>
       <div
         style={{
-          height: height * 0.242,
-          width: width * 0.238,
-          backgroundColor: '#ff9191',
-          borderRadius: 6,
+          height: height * 0.142,
+          width: width * 0.228,
+          backgroundColor: '#c7f2b5',
+          borderRadius: 5,
           display: 'flex',
           justifyContent: 'space-around',
           alignItems: 'center',
           flexDirection: 'column',
+          padding: 3,
         }}
       >
         <input
           type="text"
-          placeholder={'Username or Email'}
+          placeholder={'Nhập mã sinh viên'}
+          onChange={(e) => setUsername(e.target.value)}
           style={{
             marginTop: 10,
-            backgroundColor: '#9b5757',
+            backgroundColor: '#385b70',
             color: '#fff',
             border: '1px solid transparent',
             outline: 'none',
@@ -56,14 +72,15 @@ function LoginToLookSchedule(props) {
             paddingLeft: 10,
           }}
         />
-
         <input
           type="password"
+          onChange={(e) => setPassword(e.target.value)}
           placeholder={'Password'}
           color={'#fff'}
           style={{
             marginBottom: 10,
-            backgroundColor: '#9b5757',
+            backgroundColor: '#385b70',
+            color: '#ffffff',
             border: '1px solid transparent',
             outline: 'none',
             padding: 8,
@@ -83,7 +100,7 @@ function LoginToLookSchedule(props) {
       <button
         style={{
           marginTop: 20,
-          backgroundColor: '#a32239',
+          backgroundColor: '#385b70',
           color: '#ffffff',
           border: '1px solid transparent',
           outline: 'none',
@@ -92,11 +109,8 @@ function LoginToLookSchedule(props) {
           borderRadius: 5,
           textAlign: 'center',
           justifyContent: 'center',
-          paddingLeft: 10,
         }}
-        onClick={() => {
-          navigate('/RegisterSource')
-        }}
+        onClick={handleLogin}
       >
         Đăng nhập
       </button>
