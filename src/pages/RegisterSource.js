@@ -76,13 +76,14 @@ const RegisterSource = (props) => {
   const [subjectRegister, setSubjectRegister] = useState('')
 
   const [openDialog, setOpenDialog] = useState(false)
+  const [openDialog2, setOpenDialog2] = useState(false)
 
   const handleCloseDialog = () => {
     setOpenDialog(false)
   }
 
   const [idClassRegistration, setIdClassRegistration] = useState('')
-
+  const [idDeleteSubject, setIdDeleteSubject] = useState('')
   const [listSubjectRegister, setListSubjectRegister] = useState([])
 
   return (
@@ -616,7 +617,10 @@ const RegisterSource = (props) => {
                     cursor: 'pointer',
                     color: '#33af92',
                   }}
-                  onClick={() => {}}
+                  onClick={() => {
+                    setOpenDialog2(true)
+                    setIdDeleteSubject(course.registionId)
+                  }}
                 >
                   Hủy
                 </td>
@@ -683,6 +687,72 @@ const RegisterSource = (props) => {
             </button>
             <button
               onClick={handleCloseDialog}
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: 5,
+                padding: '5px 10px',
+              }}
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      )}
+
+      {openDialog2 == true && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#ff4949',
+            padding: 20,
+            borderRadius: 10,
+            boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <p>Bạn muốn hủy môn này ?</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+          >
+            <button
+              onClick={async () => {
+                try {
+                  const response = await axios
+                    .delete(
+                      `http://localhost:8092/api/v1/regist-courses/registions/${idDeleteSubject}`
+                    )
+                    .then((res) => {
+                      alert(`Đăng Hủy đăng kí thành công`)
+                      setOpenDialog2(false)
+                    })
+                } catch (error) {
+                  alert(`Lỗi ${error}`)
+                  console.log(error)
+                }
+              }}
+              style={{
+                backgroundColor: '#ff4949',
+                color: 'white',
+                borderRadius: 5,
+                padding: '5px 10px',
+              }}
+            >
+              Đăng kí
+            </button>
+            <button
+              onClick={() => {
+                setOpenDialog2(false)
+              }}
               style={{
                 backgroundColor: 'white',
                 color: 'black',
