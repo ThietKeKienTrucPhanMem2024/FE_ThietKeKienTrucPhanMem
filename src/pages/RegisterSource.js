@@ -62,19 +62,6 @@ const RegisterSource = (props) => {
     },
   ]
 
-  const [selectedCourse, setSelectedCourse] = useState(null)
-  const [listLopHocPhan, setlistLopHocPhan] = useState([])
-
-  const handleRowClick = (course) => {
-    setSelectedCourse(selectedCourse === course ? null : course)
-  }
-
-  const showClas = (course) => {
-    setSelectedCourse(selectedCourse === course ? null : course)
-    if (course && course.ListLớp) {
-      setlistLopHocPhan(course.ListLớp)
-    }
-  }
   return (
     <div
       style={{
@@ -303,7 +290,7 @@ const RegisterSource = (props) => {
           {courses.map((course) => (
             <tr
               key={course.subjectId}
-              onClick={() => showClas(course)}
+              onClick={() => {}}
               style={{ cursor: 'pointer' }}
             >
               <td style={{ padding: 10, border: '1px solid #ddd' }}>
@@ -432,7 +419,7 @@ const RegisterSource = (props) => {
           </tr>
         </thead>
         <tbody>
-          {listLopHocPhan.map((course) => (
+          {/* {listLopHocPhan.map((course) => (
             <tr
               key={course.STT}
               onClick={() => handleRowClick(course)}
@@ -460,7 +447,7 @@ const RegisterSource = (props) => {
                 {course.TrạngThái}
               </td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
 
@@ -619,4 +606,5 @@ const RegisterSource = (props) => {
     </div>
   )
 }
+
 export default RegisterSource
