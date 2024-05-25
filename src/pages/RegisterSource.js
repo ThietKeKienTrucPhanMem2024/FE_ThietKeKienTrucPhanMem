@@ -51,30 +51,25 @@ const RegisterSource = (props) => {
       console.log(error)
     }
   }
+
+  const getListRegisted = async () => {
+    try {
+      const response = await axios
+        .get(
+          `http://localhost:8092/api/v1/regist-courses/registions/students/20066981`
+        )
+        .then((res) => {
+          setListSubjectRegister(res.data)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
+    getListRegisted()
     getStudent()
     getAllSubjects()
   }, [])
-
-  const registerCourses = [
-    {
-      id: 3,
-      name: 'Lập trình hướng đối tượng',
-      code: 'LTHDT',
-      credits: 3,
-      enrolled: 20,
-      status: 'Closed',
-    },
-
-    {
-      id: 5,
-      name: 'Nhập môn dữ liệu lớn',
-      code: 'NMDLL',
-      credits: 4,
-      enrolled: 40,
-      status: 'Closed',
-    },
-  ]
 
   const [sesionClass, setSesionClass] = useState([])
 
@@ -85,6 +80,10 @@ const RegisterSource = (props) => {
   const handleCloseDialog = () => {
     setOpenDialog(false)
   }
+
+  const [idClassRegistration, setIdClassRegistration] = useState('')
+
+  const [listSubjectRegister, setListSubjectRegister] = useState([])
 
   return (
     <div
@@ -452,6 +451,7 @@ const RegisterSource = (props) => {
               <tr
                 key={sesion.sectionClassId}
                 onClick={() => {
+                  setIdClassRegistration(sesion.sectionClassId)
                   setOpenDialog(true)
                 }}
                 style={{ cursor: 'pointer' }}
@@ -543,7 +543,17 @@ const RegisterSource = (props) => {
                 boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
               }}
             >
-              Mã học phần
+              Tên lớp
+            </th>
+            <th
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
+                color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              Đã đăng kí
             </th>
             <th
               style={{
@@ -562,37 +572,56 @@ const RegisterSource = (props) => {
                 color: 'white',
                 boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
               }}
+            >
+              Lịch học
+            </th>
+            <th
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#33af92',
+                color: 'white',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
             ></th>
           </tr>
         </thead>
         <tbody>
-          {registerCourses.map((course) => (
-            <tr key={course.id}>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.id}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.name}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.code}
-              </td>
-              <td style={{ padding: 10, border: '1px solid #ddd' }}>
-                {course.credits}
-              </td>
-              <td
-                style={{
-                  padding: 10,
-                  border: '1px solid #ddd',
-                  cursor: 'pointer',
-                  color: '#33af92',
-                }}
-                onClick={() => {}}
-              >
-                Hủy
-              </td>
-            </tr>
-          ))}
+          {listSubjectRegister != [] &&
+            listSubjectRegister.map((course) => (
+              <tr key={course.registionId}>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {course.registionId}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {course.sectionClass.subject.name}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {course.sectionClass.name}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  {course.sectionClass.studentNumber}/30
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  Lý thuyết: {course.sectionClass.subject.theoryCredit} <br />
+                  Thực hành: {course.sectionClass.subject.practiceCredit}
+                </td>
+                <td style={{ padding: 10, border: '1px solid #ddd' }}>
+                  Lý thuyết: {course.sectionClass.theorySchedule} <br />
+                  Thực hành: {course.sectionClass.practiceSchedule}
+                </td>
+                <td
+                  style={{
+                    padding: 10,
+                    border: '1px solid #ddd',
+                    cursor: 'pointer',
+                    color: '#33af92',
+                  }}
+                  onClick={() => {}}
+                >
+                  Hủy
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
 
@@ -621,7 +650,28 @@ const RegisterSource = (props) => {
             }}
           >
             <button
-              // onClick={handleRegister}
+              onClick={async () => {
+                try {
+                  const response = await axios
+                    .post(
+                      `http://localhost:8092/api/v1/regist-courses/registions`,
+                      {
+                        studentId: '20066981',
+                        sectionClassId: idClassRegistration,
+                      }
+                    )
+                    .then((res) => {
+                      alert(`Đăng kí thành công môn ${subjectRegister}`)
+                      setOpenDialog(false)
+                    })
+                } catch (error) {
+                  if (error.response.status === 400) {
+                    alert(`Lỗi: Bạn phải đăng kí môn học tiên quyết`)
+                  }
+                  alert(`Lỗi ${error}`)
+                  console.log(error)
+                }
+              }}
               style={{
                 backgroundColor: '#33af92',
                 color: 'white',
